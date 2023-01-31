@@ -1,7 +1,7 @@
-ghidra-fidb-dos-win16-pipeline
-==============================
+ghidra-fidb-dos-win16
+=====================
 
-Scripts for scraping vintage x86 C/C++ libraries in Ghidra, in order to generate FunctionId databases.
+Scripts for scraping vintage x86 C/C++ libraries in Ghidra, in order to generate FunctionID databases.
 
 Based on the scripts from https://github.com/threatrack/ghidra-fid-generator.
 
@@ -17,6 +17,16 @@ Supported libraries:
 - msc700 - Microsoft C/C++ 7.0
 - msvc152c - Microsoft Visual C++ 1.52c
 
+How to add FunctionID databases to Ghidra
+-----------------------------------------
+
+Open the code browser for your DOS/Win16 Ghidra project.
+
+In the menu, select ``Tools -> Function ID -> Attach existing FidDb``.
+
+Add all of the ``.fidb`` files in the ``fidb/`` directory of this repository.
+
+In the menu, select ``Analysis -> Auto Analyze``. Ghidra will scan over everything and annotate any C library functions that match.
 
 How to find what C library you need
 -----------------------------------
@@ -52,10 +62,11 @@ Plug the exact wordings of the more unique error messages into a search engine. 
 How to process old C libraries
 ------------------------------
 
+You will need to set up a development version of Ghidra. I have made several fixes to the OMF loader, available at this PR - https://github.com/NationalSecurityAgency/ghidra/pull/4912
+
 Find a copy of the old compiler. I have been using the archive at https://winworldpc.com/library/dev, a very comprehensive collection of early DOS/Win16 compiler versions.
 
 Using an emulator such as DOSBox, mount the disk image(s) and install the compiler to an empty root folder. Be sure to include all of the optional features, such as support for different memory modes.
-
 
 Set the following environment variables (if required):
 
@@ -66,4 +77,4 @@ Set the following environment variables (if required):
 
 For processing, you will need several gigabytes of space for the Ghidra project; approx 1GB of space for every 1MB of library data. 
 
-Finally, run ./fidb-rip.py; this will execute all of the steps required to produce a FIDB file.
+Finally, run ``./fidb-rip.py``; this will execute all of the steps required to produce a FIDB file.

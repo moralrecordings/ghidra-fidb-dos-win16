@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import pathlib
 import subprocess
 
 GHIDRA_HOME = os.getenv("GHIDRA_HOME", "/opt/ghidra")
@@ -21,6 +22,7 @@ if __name__ == '__main__':
     parser.add_argument("--skip-fidb", help='Skip FIDB creation step', action='store_true')
     parser.add_argument("--skip-pack", help='Skip FIDB packing step', action='store_true')
     parser.add_argument("--delete", help='Delete project after completion', action='store_true')
+    parser.add_argument("--duplicate-log", help="Output text file for duplicate logs", default="/tmp/fidb-duplicates.log")
 
     args = parser.parse_args()
 
@@ -29,7 +31,7 @@ if __name__ == '__main__':
 
     if not args.skip_load:
         print("==== Loading libraries into a new Ghidra project")
-        subprocess.check_call([GHIDRA_HEADLESS, GHIDRA_PROJ, args.lib_name, "-noanalysis", "-scriptPath", "ghidra_scripts", "-preScript", "ImportFromFileSystem.java", args.lib_path])
+        subprocess.check_call([GHIDRA_HEADLESS, GHIDRA_PROJ, args.lib_name, "-noanalysis", "-scriptPath", "ghidra_scripts", "-preScript", "ImportFromFileSystem.java", args.lib_path, "x86:LE:16:Real Mode"])
 
     if not args.skip_analyse:
         print("==== Auto-analysing all objects")
@@ -37,7 +39,8 @@ if __name__ == '__main__':
 
     if not args.skip_fidb:
         print("==== Generating a FIDB")
-        subprocess.check_call([GHIDRA_HEADLESS, GHIDRA_PROJ, args.lib_name, "-noanalysis", "-scriptPath", "ghidra_scripts","-preScript", "AutoCreateMultipleLibraries.java", "null", "true", args.fidb_path, f"{args.lib_name}.fidb", "/", "null", "x86:LE:16:Real Mode"])
+        pathlib.Path(args.duplicate_log).touch() 
+        subprocess.check_call([GHIDRA_HEADLESS, GHIDRA_PROJ, args.lib_name, "-noanalysis", "-scriptPath", "ghidra_scripts","-preScript", "AutoCreateMultipleLibraries.java", args.duplicate_log, args.fidb_path, f"{args.lib_name}.fidb", "/", "x86:LE:16:Real Mode"])
 
     if not args.skip_fidb:
         print("==== Packing the FIDB")

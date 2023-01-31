@@ -426,9 +426,7 @@ public class AutoCreateMultipleLibraries extends GhidraScript {
 		catch (CancelledException ex) {
 			// ignore, means we use console
 		}
-		if (askYesNo("Do Duplication Detection", "Do you want to detect duplicates")) {
-			duplicatemap = new TreeMap<Long, String>();
-		}
+		duplicatemap = new TreeMap<Long, String>();
 
 		// TODO: FIXME: we can't askFile here because in headless file must exist
 		File d = askDirectory("FidDB path", "OK");
@@ -443,12 +441,12 @@ public class AutoCreateMultipleLibraries extends GhidraScript {
 		FidFileManager.getInstance().createNewFidDatabase(f);
 		FidFile fidFile = FidFileManager.getInstance().addUserFidFile(f);
 
-		try {
+		/*try {
 			commonSymbolsFile = askFile("Common symbols file (optional):", "OK");
 		}
-		catch (CancelledException e) {
+		catch (CancelledException e) {*/
 			commonSymbolsFile = null;	// Common symbols file may be null
-		}
+		/*}*/
 		String lang = askString("Enter LanguageID To Process", "Language ID: ");
 		languageID = new LanguageID(lang);
 
