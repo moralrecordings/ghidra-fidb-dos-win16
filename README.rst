@@ -7,15 +7,17 @@ Based on the scripts from https://github.com/threatrack/ghidra-fid-generator.
 
 Supported libraries:
 
-- blc200 - Borland C++ 2.0
-- blc300 - Borland C++ 3.0
-- blc310 - Borland C++ 3.1
-- msc400 - Microsoft C Compiler 4.0
-- msc500 - Microsoft C Compiler 5.0
-- msc510 - Microsoft C Compiler 5.1
-- msc600 - Microsoft C Compiler 6.0
-- msc700 - Microsoft C/C++ 7.0
-- msvc152c - Microsoft Visual C++ 1.52c
+- blc200 - Borland C++ 2.0 (1990)
+- blc300 - Borland C++ 3.0 (1991)
+- blc310 - Borland C++ 3.1 (1992)
+- mfc250 - Microsoft Foundation Classes 2.5 (1995)
+- msc300 - Microsoft C Compiler 3.0 (1985)
+- msc400 - Microsoft C Compiler 4.0 (1986)
+- msc500 - Microsoft C Compiler 5.0 (1987)
+- msc510 - Microsoft C Compiler 5.1 (1988)
+- msc600 - Microsoft C Compiler 6.0 (1991)
+- msc700 - Microsoft C/C++ 7.0 (1992)
+- msvc152c - Microsoft Visual C++ 1.52c (1995)
 
 How to add FunctionID databases to Ghidra
 -----------------------------------------
@@ -62,11 +64,11 @@ Plug the exact wordings of the more unique error messages into a search engine. 
 How to process old C libraries
 ------------------------------
 
-You will need to set up a development version of Ghidra. I have made several fixes to the OMF loader, available at this PR - https://github.com/NationalSecurityAgency/ghidra/pull/4912
+As of this writing, you will need to set up a development version of Ghidra based on the branch at this PR, which contains several fixes to the OMF loader. The DevGuide.md in the Ghidra repository. - https://github.com/NationalSecurityAgency/ghidra/pull/4912
 
-Find a copy of the old compiler. I have been using the archive at https://winworldpc.com/library/dev, a very comprehensive collection of early DOS/Win16 compiler versions.
+Find a copy of the old libraries you wish to import. I have been using the archive at https://winworldpc.com/library/dev, a very comprehensive collection of early DOS/Win16 compiler versions.
 
-Using an emulator such as DOSBox, mount the disk image(s) and install the compiler to an empty root folder. Be sure to include all of the optional features, such as support for different memory modes.
+Using an emulator such as DOSBox, mount the disk image(s) and install the compiler to an empty root folder. Be sure to include *all* of the optional features, such as support for different memory modes.
 
 Set the following environment variables (if required):
 
@@ -75,6 +77,5 @@ Set the following environment variables (if required):
 - GHIDRA_SCRIPTS: Location of the FunctionID scripts in the Ghidra install. Defaults to $GHIDRA_HOME/Ghidra/Features/FunctionID/ghidra_scripts
 - GHIDRA_PROJ: Location to create the Ghidra project used for processing. Defaults to /tmp/ghidra-proj
 
-For processing, you will need several gigabytes of space for the Ghidra project; approx 1GB of space for every 1MB of library data. 
 
-Finally, run ``./fidb-rip.py``; this will execute all of the steps required to produce a FIDB file.
+Finally, run ``./fidb-rip.py [shortname] [path_to_libs] [path_for_outputting_fidbs]``; this will execute all of the steps required to produce a FIDB file. You will need several gigabytes of space for the Ghidra project; approx 2GB of space for every 1MB of library data. The process involves extracting and analysing every function in the library, so will take upwards of an hour on modern hardware.
