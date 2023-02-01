@@ -10,7 +10,6 @@ Supported libraries:
 - blc200 - Borland C++ 2.0 (1990)
 - blc300 - Borland C++ 3.0 (1991)
 - blc310 - Borland C++ 3.1 (1992)
-- mfc250 - Microsoft Foundation Classes 2.5 (1995)
 - msc300 - Microsoft C Compiler 3.0 (1985)
 - msc400 - Microsoft C Compiler 4.0 (1986)
 - msc500 - Microsoft C Compiler 5.0 (1987)
