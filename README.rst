@@ -63,7 +63,7 @@ Plug the exact wordings of the more unique error messages into a search engine. 
 How to process old C libraries
 ------------------------------
 
-As of this writing, you will need to set up a development version of Ghidra based on the branch at this PR, which contains several fixes to the OMF loader. The DevGuide.md in the Ghidra repository. - https://github.com/NationalSecurityAgency/ghidra/pull/4912
+As of this writing, you will need to set up a development version of Ghidra based on the branch at this PR, which contains several fixes to the OMF loader. See the DevGuide.md file in the Ghidra repository for information on how to build the development version. - https://github.com/NationalSecurityAgency/ghidra/pull/4912
 
 Find a copy of the old libraries you wish to import. I have been using the archive at https://winworldpc.com/library/dev, a very comprehensive collection of early DOS/Win16 compiler versions.
 
